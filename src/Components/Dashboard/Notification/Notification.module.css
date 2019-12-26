@@ -1,0 +1,35 @@
+.notification{
+    overflow-y: scroll;
+    height: 90%;
+}
+.item{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #4e657a;
+    color: #fff;
+    font-size: 95%;
+    margin-bottom: 15px;
+}
+.image{
+    width: 80px;
+    height: 80px;
+    background-color: #aaa;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.pic{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.body{
+    flex: 1;
+}
+.body p{
+    margin-bottom: .5rem;
+}
+a{
+    color:#f5a623;
+    text-decoration: none;
+}

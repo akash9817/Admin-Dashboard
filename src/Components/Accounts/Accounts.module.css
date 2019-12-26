@@ -1,0 +1,141 @@
+.accounts{
+    padding: 2rem;
+  background-color:#435c70;
+  margin-bottom: 20px;
+}
+.accounts h2, .accounts p{
+    color: white;
+    margin: 0.7rem;
+}
+.accounts select{
+    width: 100%;
+    padding: 19px 18px;
+    border-radius: 0px;
+    background-color: #54657d;
+    color: #fff;
+    border: 0;
+    margin-bottom: 20px;
+    font-size: large;
+}
+.details{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.left{
+    flex-basis: 30%;
+    padding: 30px;
+    text-align: center;
+    background-color:#435c70;
+    margin-right: 15px;
+    height: fit-content;
+}
+.right{
+    flex-basis: 60%;
+    padding: 30px;
+    background-color:#435c70;
+}
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.form label{
+    flex-basis: 45%;
+    color: white;
+    font-size: large;
+    text-align: left;
+    margin-bottom:10px ;
+}
+.form input{
+    width: 90%;
+    padding: 15px 18px;
+    border-radius: 0px;
+    background-color: #54657d;
+    color: #fff;
+    border: 0;
+    margin-bottom: 17px;
+    font-size: large;
+}
+.btn{
+    color: #fff;
+    background-color: #f5a623;
+    border: 2px solid #f5a623;
+    font-size: 90%;
+    font-weight: 600;
+    border-radius: 0;
+    padding: 15px 18px;
+    transition: all 0.2s ease;
+    margin-bottom: 17px;
+    text-transform: uppercase;
+}
+.btn:hover{
+    cursor: pointer;
+    background-color: #435c70;
+    color: #f5a623;
+}
+
+.image{
+    position: relative;
+    max-width: 16rem;
+    height: 240px;
+    /* height: 280px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #aaa;
+    margin: 0 auto 15px auto;
+}
+.image:hover{
+    cursor: pointer;
+}
+.image:hover .avatardelete{
+    display: block;
+}
+.avatardelete{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1000;
+    padding: 14px;
+    border-radius: 50%;
+    background-color: rgba(57, 78, 100, 0.7);
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    display: none;
+    transition: all 0.2s ease;
+}
+.image i{
+    vertical-align: middle;
+    font-size: 2rem;
+    color: #fff;
+}
+.image:hover .avatardelete{
+    display: block;
+}
+
+@media screen and (max-width:800px){
+    .details{
+        flex-direction: column;
+    }
+    .left{
+        flex-basis: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    .right{
+        flex-basis: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    .form label{
+        flex-basis: 100%;
+    }
+    .btn{
+        width: 100%;
+    }
+}

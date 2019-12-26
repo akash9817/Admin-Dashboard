@@ -1,0 +1,83 @@
+.newproductcon{
+    background-color: #435c70;
+    padding: 25px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.formcontainer{
+    display: flex;
+}
+.form{
+display: flex;
+height: 100%;
+flex-direction: column;
+}
+.formsection{
+    padding: 1rem;
+    flex-basis: 50%;
+    flex-grow: 1;
+}
+.form label{
+    color: white;
+    font-size: large;
+    text-align: left;
+    margin-bottom:10px ;
+}
+.form input, .form textarea, .form select, .form option{
+    padding: 15px 18px;
+    border-radius: 0px;
+    background-color: #54657d;
+    color: #fff;
+    border: 0;
+    margin-bottom: 17px;
+    font-size: large;
+}
+.addprobtn{
+    width: 100%;
+    color: #fff;
+    background-color: #f5a623;
+    border: 2px solid #f5a623;
+    font-size: 90%;
+    font-weight: 600;
+    border-radius: 0;
+    padding: 13px 28px;
+    transition: all 0.2s ease;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+.addprobtn:hover{
+    background-color: #435c70;
+    color: #f5a623;
+}
+.image{
+    max-width: 100%;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #aaa;
+}
+.uploadicon{
+    background: #455c71;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 15px;
+    font-size: 22px;
+}
+
+@media screen and (max-width:800px){
+    .newproductcon{
+        width: 90%;
+    }
+    .formcontainer{
+        flex-direction: column;
+    }
+    /* .formsection{
+        flex-basis:100%
+    } */
+}

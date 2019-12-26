@@ -1,0 +1,28 @@
+.charts{
+    display: grid;
+    grid-template-columns:repeat(auto-fit,minmax(24rem,1fr));
+    grid-gap: 20px;
+}
+.item{
+    padding: 20px;
+    background-color: #435c70;;
+}
+.item h2{
+    color: white;
+    margin-top: 0;
+    margin-bottom: 1.8rem;
+    font-size: 110%;
+}
+.ordertable{
+    margin-top: 2rem;
+}
+
+
+@media screen and (max-width:600px){
+    /* .container{
+        width: 90%;
+    } */
+    /* .charts{
+        grid-template-columns: repeat(1,1fr)
+    } */
+}
