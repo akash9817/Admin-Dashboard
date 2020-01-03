@@ -7,8 +7,9 @@ class Accounts extends Component{
 
     state={
         accountsData:this.props.accountsData,
-        currentProfile:'',
-        currentData: {}
+        currentProfile:"",
+        currentData: {},
+        blank:false
     }
 
     accounts = (e) => {
@@ -16,7 +17,10 @@ class Accounts extends Component{
         var accountsData = this.state.accountsData
         this.setState({
             currentData:accountsData[selectedOption],
-            currentProfile:selectedOption})
+            currentProfile:selectedOption,
+        blank:true},() => {
+                console.log(this.state.currentData)
+            })
     }
     upload = (e) => {
         e.preventDefault();
@@ -26,11 +30,22 @@ class Accounts extends Component{
 
     changeImage = () => {
         this.changeImg.src= ""
+        this.setState({blank:false})
     }
 
-    newImage = () => {
-        console.log(this.uploadImage.files[0])
-        console.log(URL.createObjectURL(this.uploadImage.files[0]))
+    newImage = (e) => {
+
+          var temp = this.state.currentData 
+        if(e.target.files && e.target.files[0]){
+            
+            var reader = new FileReader();
+            reader.onload = (e) => {
+                this.changeImg.src= e.target.result
+                temp.profilePic = e.target.result
+                this.setState({currentData:temp,blank:true})
+            }
+            reader.readAsDataURL(e.target.files[0])
+    }
     }
 
     handleChange = (e) => {
@@ -41,15 +56,26 @@ class Accounts extends Component{
         })
     }
 
+    // updateProfile = (e) => {
+    //     e.preventDefault()
+    //     var tempCurrent = this.state.currentData
+    //     var arr = [this.state.currentProfile,tempCurrent]
+    //     this.props.newData(arr)
+    //     alert("Information Updated Successfully!")
+    // }
     updateProfile = (e) => {
         e.preventDefault()
         var tempCurrent = this.state.currentData
-        var arr = [this.state.currentProfile,tempCurrent]
-        this.props.newData(arr)
-        alert("Information Updated Successfully!")
+        console.log(tempCurrent)
+        var data =  JSON.parse(localStorage.getItem('accountsPage'))
+            data[this.state.currentProfile] = tempCurrent
+            localStorage.setItem('accountsPage',JSON.stringify(data))
+       this.setState({accountsData:data})
+       alert("Information Updated Successfully!")
     }
-
+   
     render(){
+        
         var currentData = this.state.currentData
         return(
            <React.Fragment> 
@@ -67,7 +93,7 @@ class Accounts extends Component{
             <div className={classes.details}>
                 <div className={classes.left}>
                     <h3 style={{color:'white'}}>Change Avatar</h3>
-                    <div className={classes.image} onClick={this.changeImage}>
+                    <div className={classes.image} onClick={this.state.blank ? this.changeImage : this.upload}>
                     <img src={currentData.profilePic} ref={(ele) => {this.changeImg = ele}} style={{width:'100%',height:'100%'}} alt=""/>
                     <span className={classes.avatardelete}>
                         <i className="far fa-trash-alt"></i>
@@ -129,3 +155,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapGlobalStateToProps,mapDispatchToProps)(Accounts)
+// this.changeImg.src == undefined ? this.changeImage : this.upload

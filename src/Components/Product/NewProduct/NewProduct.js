@@ -13,14 +13,21 @@ class NewProduct extends Component {
         //this.uploadImg.click()
         this.uploadImage.click()
     }
-    fileValidation = () => {
-        console.log(this.uploadImage.files[0])
+    fileValidation = (e) => {
+        
         if(this.uploadImage.files[0].size > 1048576){
             alert("File size is larger than 1mb")
+            return
         }
         var type = this.uploadImage.files[0].type.substring(6)
-        console.log(type)
-        if(type === "png" || "jpeg" || "jpg" || "bmp" || "svg" || "webp"){
+        if(type === "png" || "jpeg" || "jpg" || "bmp" || "svg" || "webp"){  
+              if(e.target.files && e.target.files[0]){
+                  var reader = new FileReader();
+                  reader.onload = (e) => {
+                      this.changeImg.src= e.target.result
+                  }
+                  reader.readAsDataURL(e.target.files[0])
+              }
         }else{
             alert('File format is incorrect, please select png, jpg, bmp, svg, webp format ')
         }
@@ -34,7 +41,9 @@ class NewProduct extends Component {
             stock:formData.stock.value,
             expireDate:formData.expireDate.value
         }
-        console.log(newProduct)
+        var data =  JSON.parse(localStorage.getItem('productsPage'))
+        data.products.push(newProduct)
+        localStorage.setItem('productsPage',JSON.stringify(data))
         this.props.onAddProduct(newProduct)
         this.props.history.push('/products')
     }
@@ -64,7 +73,10 @@ class NewProduct extends Component {
             </div>
             <div className={classes.formsection}>
                 <div className={classes.image}  onClick={this.upload}>
-                <i className={['fas','fa-cloud-upload-alt',classes.uploadicon].join(" ")}></i>
+                <img src="" ref={(ele) => {this.changeImg = ele}} style={{width:'100%',height:'100%'}} alt=""/>
+                <span className={classes.avatardelete}>
+                        <i className="far fa-trash-alt"></i>
+                </span> 
                 </div>
                 <input type ="file" ref={(ele) => {this.uploadImage = ele}} onChange={this.fileValidation} style={{display:'none'}}/>
                 <button className={classes.addprobtn} onClick={this.upload}>UPLOAD PRODUCT IMAGE</button>

@@ -21,6 +21,25 @@
 .trow{
     border-bottom: 1px solid #415a70;
 }
+.trow input[type="checkbox"] {
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #394e64;
+    background-position: center;
+    border-radius: 50%;
+    box-sizing: border-box;
+    position: relative;
+    box-sizing: content-box;
+    width: 24px;
+    height: 24px;
+    transition: all 0.1s linear;
+    box-sizing: border-box;
+}
+.trow input[type="checkbox"]:checked{
+    background-color: rgba(255,255,255,.5);
+    outline:none
+}
 .trow:hover{
     color: #a0c0de;
     background-color: rgba(0,0,0,.075);

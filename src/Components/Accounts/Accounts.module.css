@@ -114,9 +114,7 @@
     font-size: 2rem;
     color: #fff;
 }
-.image:hover .avatardelete{
-    display: block;
-}
+
 
 @media screen and (max-width:800px){
     .details{

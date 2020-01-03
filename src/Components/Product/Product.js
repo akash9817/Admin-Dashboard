@@ -11,11 +11,22 @@ class Product extends Component{
         ProductsData:this.props.ProductsData,
         modal:false
     }
-    closeModal = () => {
-        this.setState(prevState => ({modal:!prevState.modal}))
+        
+    static getDerivedStateFromProps(props,state){
+        if(props.ProductsData !== state.ProductsData){
+            return {ProductsData: props.ProductsData}
+        }else{
+            return null
+        }
+
     }
 
+    closeModal = () => {
+        this.setState(prevState => ({modal:!prevState.modal}))
+    }       
+
     render(){
+
         return(
            <div className={classes.div}> 
              {this.state.modal ? <Modal close={this.closeModal}/>: null} 

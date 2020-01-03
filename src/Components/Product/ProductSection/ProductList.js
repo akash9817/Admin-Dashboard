@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import classes from './ProductList.module.css'
 import { Link } from 'react-router-dom'
+import {connect} from 'react-redux';
 
 var removePos = []
 class ProductList extends Component{
 
      state ={
-        productListData:this.props.products
+        productListData:this.props.products 
      }
      handleChange = (position) => {
     removePos.push(position)
@@ -20,21 +21,32 @@ class ProductList extends Component{
             }else{
                 return true
             }
+            
       })
-      this.setState({productListData:changed})
+      
+      this.setState({productListData:changed}, () => {
+        var data = JSON.parse(localStorage.getItem('productsPage'))
+        data.products = changed
+        localStorage.setItem('productsPage',JSON.stringify(data))
+      })
+      this.props.deleteProduct(changed)
+      removePos = []
     } 
+
+
     dustbin = (pos) => {
         removePos.push(pos)
         this.deleteProduct()
     } 
 
-    render(){
 
+    render(){
+    
     var row = this.state.productListData.map((i,pos) => {
          return(
-             <tr key={pos} className={classes.trow}>
+             <tr key={i.name + pos} className={classes.trow}>
                  <th>
-                     <input type="checkbox" onClick={() => this.handleChange(pos)}/>
+                     <input type="checkbox" onChange={() => this.handleChange(pos)}/>
                  </th>
                     <td>{i.name}</td>
                     <td>{i.unitSold}</td>
@@ -70,4 +82,12 @@ class ProductList extends Component{
     )
 }
 }
-export default ProductList
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteProduct: (data) => {dispatch({type:'DELETE_PRODUCT',val:data})}
+    }
+
+}
+
+export default connect(null,mapDispatchToProps)(ProductList)

@@ -14,18 +14,29 @@ import Accounts from './Components/Accounts/Accounts';
 class App extends Component {
 
   componentDidMount(){
+    if(localStorage.getItem('accountsPage')){
+      return
+    }
     axios.get("https://reactmusicplayer-ab9e4.firebaseio.com/project-data.json")
     .then(res => {
       localStorage.setItem('accountsPage',JSON.stringify(res.data.accountsPage))
       localStorage.setItem('dashboardPage',JSON.stringify(res.data.dasbhoardPage))
       localStorage.setItem('productsPage',JSON.stringify(res.data.productsPage))
+      this.props.Started()
     }).catch(err => {
       console.log(err)
     })
+   
   }
 
   
+
+  
   render(){
+  //   window.onbeforeunload = function() {
+  //     localStorage.clear();
+  //  }
+    console.log(this.props.all)
   return (
     <div className="App">
         <Navbar/>
@@ -44,12 +55,22 @@ class App extends Component {
     </div> 
   );
  }
+
+
 }
 
 const mapGlobalStateToProps = (globalState) => {
   return{
+      all : globalState,
       userLoggedInStatus : globalState.loggedInStatus
   }
 }
 
-export default connect(mapGlobalStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return{
+      Started : () => {dispatch({type:'STARTED'})}
+  }
+}
+
+
+export default connect(mapGlobalStateToProps,mapDispatchToProps)(App);

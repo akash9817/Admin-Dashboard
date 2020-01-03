@@ -1,27 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react'
 import classes from './ProductList.module.css'
-class ProductCategory extends Component{
+import {connect} from 'react-redux';
 
-    state ={
-        productListCategory:this.props.categories
-     }
+function ProductCategory(props){
+ 
+    var productListCategory =  props.categories
 
-     remove = (index) => {
-         var temp = this.state.productListCategory.slice();
+    var  remove = (index) => {
+        var temp = productListCategory.slice();
         var changed = temp.filter((i,pos) => pos !== index)
-      this.setState({productListCategory:changed})
 
-     }
+        var data = JSON.parse(localStorage.getItem('productsPage'))
+        data.categories = changed
+        localStorage.setItem('productsPage',JSON.stringify(data))
+        props.deleteCategory(changed)
+        }   
 
-    render(){
-        var row = this.state.productListCategory.map((i,pos) => {
-            return (
-                <tr key={pos} className={classes.trow}>
-                    <td>{i}</td>
-                    <td onClick={() => this.remove(pos)}><i className="far fa-trash-alt"></i></td>
-                </tr>
-            )
-        }) 
+    var row = productListCategory.map((i,pos) => {
+                    return (
+                        <tr key={i + pos} className={classes.trow}>
+                            <td>{i}</td>
+                            <td onClick={() => remove(pos)}><i className="far fa-trash-alt"></i></td>
+                        </tr>
+                    )
+                })
+       
     return(
         <div>
             <h2 className={classes.title}>Product Category</h2>
@@ -32,10 +35,16 @@ class ProductCategory extends Component{
                 </tbody>
             </table>
             </div>  
-            <button className={classes.btn} onClick={this.props.modal}>ADD NEW CATEGORY</button>
+            <button className={classes.btn} onClick={props.modal}>ADD NEW CATEGORY</button>
         </div>
     )
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteCategory: (data) => {dispatch({type:'DELETE_CATEGORY',val:data})}
+    }
+
 }
 
-export default ProductCategory
+export default connect(null, mapDispatchToProps)(ProductCategory)
