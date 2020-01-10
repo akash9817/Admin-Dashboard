@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import {connect} from 'react-redux'
 import classes from './Dashboard.module.css';
 import {Line, HorizontalBar, Pie} from 'react-chartjs-2';
 import Notifications from './Notification/Notifications'
@@ -15,18 +17,42 @@ class Dashboard extends Component{
     }
 
     componentDidMount(){
-        var data = JSON.parse(localStorage.getItem('dashboardPage'))
-       
-        this.setState({latestHits:data.latestHits,
-                    performance:data.performance,
-                    storage:data.storage,
-                    notifications:data.notifications,
-                    orders:data.orders})
+        if(localStorage.getItem('accountsPage')){
+            var data = JSON.parse(localStorage.getItem('dashboardPage'))
+            this.setState({latestHits:data.latestHits,
+                        performance:data.performance,
+                        storage:data.storage,
+                        notifications:data.notifications,
+                        orders:data.orders})
+            return null
+          }
+          axios.get("https://reactmusicplayer-ab9e4.firebaseio.com/project-data.json")
+          .then(res => {
+            localStorage.setItem('accountsPage',JSON.stringify(res.data.accountsPage))
+            localStorage.setItem('dashboardPage',JSON.stringify(res.data.dasbhoardPage))
+            localStorage.setItem('productsPage',JSON.stringify(res.data.productsPage))
+            this.props.Started()
+            var data = JSON.parse(localStorage.getItem('dashboardPage'))
+            this.setState({latestHits:data.latestHits,
+                        performance:data.performance,
+                        storage:data.storage,
+                        notifications:data.notifications,
+                        orders:data.orders})
+          }).catch(err => {
+            console.log(err)
+          })
+     
     }
     render(){
         var latestHits = this.state.latestHits
         var performance = this.state.performance
         var storage = this.state.storage
+        var storageLabel = []
+        for (let key in storage){
+            if(storage.hasOwnProperty(key)){
+              storageLabel.push(`${key} (${storage[key]}GB)`)
+            }
+         }
 
         var latestTemp = {
             labels:latestHits.months,
@@ -66,7 +92,7 @@ class Dashboard extends Component{
                     ]
         } 
         var storageTemp = {
-            labels:Object.keys(storage),
+            labels:storageLabel,
             datasets:[
                 {   
                     backgroundColor:['red','green','blue'],
@@ -89,6 +115,11 @@ class Dashboard extends Component{
                         beginAtZero:true,
                         fontColor: 'white'
                     },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Hits',
+                        fontColor:'white'
+                      }
                 }],
               xAxes: [{
                     ticks: {
@@ -145,4 +176,10 @@ class Dashboard extends Component{
 }
 }
 
-export default Dashboard;
+const mapDispatchToProps = (dispatch) => {
+    return{
+        Started : () => {dispatch({type:'STARTED'})}
+    }
+  }
+
+export default connect(null,mapDispatchToProps)(Dashboard);

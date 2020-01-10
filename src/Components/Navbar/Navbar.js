@@ -7,30 +7,37 @@ import { Link,NavLink } from 'react-router-dom';
 class Navbar extends Component{
 
     state = {
-        showReports : false,
-        showSettings :false,
         showHamburger:false,
         loggedIn:false
     }
 
      closeHamburger = (event) => {
-        if(!this.list.contains(event.target)){
-            this.setState({showHamburger:false}, () => {
-                document.removeEventListener('click',this.closeHamburger)})
-            }
+        // if(!this.list.contains(event.target)){
+        //     this.setState({showHamburger:false}, () => {
+        //         document.removeEventListener('click',this.closeHamburger)})
+        //     }
+        //     else{
+        //         this.setState({showHamburger:false}, () => {
+        //             document.removeEventListener('click',this.closeHamburger)})
+        //     }
+        this.setState({showHamburger:false}, () => {
+                        document.removeEventListener('click',this.closeHamburger)})
+
      }
 
-     openHamburger = (str)=>{
-        this.setState({showHamburger:true}, () => {
+     openHamburger = ()=>{
+        this.setState({showHamburger:true}
+            , () => {
         document.addEventListener('click',this.closeHamburger)})
-     }   
+     } 
+     
     render(){
     return(
         <div className={classes.navbar}>
             <div className={classes.container}>
                <Link to="/dashboard"><div className={classes.navbrand}><h1>Product Admin</h1></div></Link>
                <div className={classes.navitem}>
-                    <NavItems/>
+                    <NavItems />
                     </div>    
                 {this.props.userLoggedInStatus &&
                         <Link to="/"><div className={classes.login} onClick={this.props.onUserLoggedOut}>Admin, logout</div></Link>

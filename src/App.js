@@ -13,21 +13,22 @@ import Accounts from './Components/Accounts/Accounts';
 
 class App extends Component {
 
-  componentDidMount(){
-    if(localStorage.getItem('accountsPage')){
-      return
-    }
-    axios.get("https://reactmusicplayer-ab9e4.firebaseio.com/project-data.json")
-    .then(res => {
-      localStorage.setItem('accountsPage',JSON.stringify(res.data.accountsPage))
-      localStorage.setItem('dashboardPage',JSON.stringify(res.data.dasbhoardPage))
-      localStorage.setItem('productsPage',JSON.stringify(res.data.productsPage))
-      this.props.Started()
-    }).catch(err => {
-      console.log(err)
-    })
+  // componentDidMount(){
+  //   if(localStorage.getItem('accountsPage')){
+  //     return
+  //   }
+  //   axios.get("https://reactmusicplayer-ab9e4.firebaseio.com/project-data.json")
+  //   .then(res => {
+  //     localStorage.setItem('accountsPage',JSON.stringify(res.data.accountsPage))
+  //     localStorage.setItem('dashboardPage',JSON.stringify(res.data.dasbhoardPage))
+  //     localStorage.setItem('productsPage',JSON.stringify(res.data.productsPage))
+  //     this.props.Started()
+  //     console.log(res.data.dasbhoardPage)
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
    
-  }
+  // }
 
   
 

@@ -12,11 +12,17 @@
     padding: 19px 18px;
     border-radius: 0px;
     background-color: #54657d;
-    color: #fff;
+    color: #acc6de;
     border: 0;
     margin-bottom: 20px;
     font-size: large;
 }
+.accounts option{
+    color: white;
+}
+/* .form select{
+    color: #acc6de;
+} */
 .details{
     width: 100%;
     display: flex;
@@ -57,6 +63,7 @@
     margin-bottom: 17px;
     font-size: large;
 }
+
 .btn{
     color: #fff;
     background-color: #f5a623;
@@ -95,14 +102,12 @@
 }
 .avatardelete{
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
     z-index: 1000;
     padding: 14px;
     border-radius: 50%;
     background-color: rgba(57, 78, 100, 0.7);
-    display: inline-block;
+    align-items:center;
+    justify-content:center;
     width: 50px;
     height: 50px;
     text-align: center;
@@ -110,9 +115,12 @@
     transition: all 0.2s ease;
 }
 .image i{
-    vertical-align: middle;
     font-size: 2rem;
     color: #fff;
+}
+
+.image:hover .avatardelete{
+    display: flex;
 }
 
 

@@ -2,12 +2,14 @@ import React from 'react'
 import classes from './Order.module.css'
 
 function OrderList (props) {
-
+  
     var data =  props.orders.map((i,pos) => {
         return(
             <tr key={pos} className={classes.trow}>
-                <th scope="row"><b>{i.orderNo}</b></th>
-                <td>{i.status}</td>
+                <th scope="row"><b>#{i.orderNo}</b></th>
+                <td>
+                <div className={[classes.circle,classes[i.status]].join(" ")}></div>
+                {i.status}</td>
                 <td><b>{i.operators}</b></td>
                 <td><b>{i.location}</b></td>
                 <td><b>{i.distance}</b></td>

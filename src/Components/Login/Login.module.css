@@ -6,7 +6,7 @@
 }
 
 .formbox{
-    min-width: 350px;
+    width: 350px;
     padding: 2% 3%;
     background-color: #435c70;
     text-align: center;
@@ -45,6 +45,10 @@
     transition: all 0.2s ease;
     margin-bottom: 20px;
     text-transform: uppercase;
+    cursor: pointer;
+}
+.form button:disabled{
+    color: red;
 }
 .form button:hover{
     background-color: #435c70;
@@ -58,3 +62,8 @@
     display: block;
 }
 .form */
+@media screen and (max-width:400px){
+    .formbox{
+        width: 265px;
+    }
+}

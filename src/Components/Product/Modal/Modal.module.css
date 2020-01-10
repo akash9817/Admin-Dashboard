@@ -52,3 +52,9 @@
     background-color: #435c70;
     color: #f5a623;
 }
+
+@media screen and (max-width:800px){
+    .form{
+        width: 60%;
+    }
+}

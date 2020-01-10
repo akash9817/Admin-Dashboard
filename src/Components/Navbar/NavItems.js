@@ -7,13 +7,13 @@ class NavItems extends Component{
     return(
        <Fragment> 
         <NavLink to='/dashboard' className={classes.navlink}  activeClassName={classes.active}>
-            <div className={classes.item}>
+            <div  className={classes.item}>
             <i className="fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
             </div>
             </NavLink>
             <NavLink to='/products' className={classes.navlink}  activeClassName={classes.active}>
-            <div  className={classes.item}>
+            <div className={classes.item}>
             <i className="fas fa-shopping-cart"></i>
             <p>Products</p>
             </div>

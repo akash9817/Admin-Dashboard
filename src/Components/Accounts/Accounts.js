@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classes from './Accounts.module.css'
 import {connect} from 'react-redux';
+import Popup from './Popup';
 
 
 class Accounts extends Component{
@@ -9,7 +10,8 @@ class Accounts extends Component{
         accountsData:this.props.accountsData,
         currentProfile:"",
         currentData: {},
-        blank:false
+        blank:false,
+        popup:false
     }
 
     accounts = (e) => {
@@ -70,8 +72,13 @@ class Accounts extends Component{
         var data =  JSON.parse(localStorage.getItem('accountsPage'))
             data[this.state.currentProfile] = tempCurrent
             localStorage.setItem('accountsPage',JSON.stringify(data))
-       this.setState({accountsData:data})
-       alert("Information Updated Successfully!")
+       this.setState({accountsData:data,
+                        popup:true},
+                         ()=>{
+                            setTimeout(() => {
+                                this.setState({popup:false})
+                            },1500)
+                        })
     }
    
     render(){
@@ -79,6 +86,7 @@ class Accounts extends Component{
         var currentData = this.state.currentData
         return(
            <React.Fragment> 
+               {this.state.popup ? <Popup/> :null}
             <div className={classes.accounts}>
                 <h2 >List of Accounts</h2>
                 <p>Accounts</p>
@@ -111,7 +119,7 @@ class Accounts extends Component{
                         </label>
                         <label htmlFor="email">
                            <div>Account Email</div>
-                        <input  type="text" name="email" value={currentData.email || ''} onChange={this.handleChange}/>
+                        <input  type="email" name="email" value={currentData.email || ''} onChange={this.handleChange}/>
                         </label>
                         <label htmlFor="password">
                             Password
@@ -125,7 +133,7 @@ class Accounts extends Component{
                         
                         <label htmlFor="name">
                             Phone
-                            <input type="text" name="phone" value={currentData.phone || ''} onChange={this.handleChange}/>
+                            <input type="tel" name="phone" value={currentData.phone || ''} onChange={this.handleChange}/>
                         </label>
                        <label> 
                            <div>&nbsp;</div>

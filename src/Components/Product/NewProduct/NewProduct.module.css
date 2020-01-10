@@ -17,12 +17,14 @@ flex-direction: column;
     padding: 1rem;
     flex-basis: 50%;
     flex-grow: 1;
+    max-width: 50%;
 }
 .form label{
     color: white;
     font-size: large;
     text-align: left;
     margin-bottom:10px ;
+    display: block;
 }
 .form input, .form textarea, .form select, .form option{
     padding: 15px 18px;
@@ -33,6 +35,19 @@ flex-direction: column;
     margin-bottom: 17px;
     font-size: large;
 }
+.form select{
+    color: #acc6de;
+}
+.x{
+    display: flex;
+    justify-content: space-between;
+}
+.x .field{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
 .addprobtn{
     width: 100%;
     color: #fff;
@@ -65,7 +80,7 @@ flex-direction: column;
     cursor: pointer;
 }
 
-.avatardelete{
+/* .avatardelete{
     position: absolute;
     left: 50%;
     top: 50%;
@@ -75,20 +90,35 @@ flex-direction: column;
     border-radius: 50%;
     background-color: rgba(57, 78, 100, 0.7);
     display: inline-block;
+    
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    display: none;
+    transition: all 0.2s ease;
+} */
+.avatardelete{
+     position: absolute;
+    z-index: 1000;
+    padding: 14px;
+    border-radius: 50%;
+    background-color: rgba(57, 78, 100, 0.7);
+    align-items:center;
+    justify-content:center;
     width: 50px;
     height: 50px;
     text-align: center;
     display: none;
     transition: all 0.2s ease;
 }
+
 .image i{
-    vertical-align: middle;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #fff;
 }
 
 .image:hover .avatardelete{
-    display: block;
+    display: flex;
 }
 
 
@@ -98,6 +128,15 @@ flex-direction: column;
     }
     .formcontainer{
         flex-direction: column;
+    }
+    .formsection{
+        max-width: 100%;
+    }
+    .x{
+        flex-direction: column;
+    }
+    .x .left {
+        width: 100%;
     }
     /* .formsection{
         flex-basis:100%

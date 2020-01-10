@@ -1,7 +1,8 @@
 const initialState = {
     loggedInStatus:localStorage.getItem('userLoggedInStatus') === 'true',
     productsData: JSON.parse(localStorage.getItem('productsPage')),
-    accountsData:JSON.parse(localStorage.getItem('accountsPage'))
+    accountsData:JSON.parse(localStorage.getItem('accountsPage')),
+    das:JSON.parse(localStorage.getItem('dashboardPage'))
 }
 
 const MainReducer = (currentState = initialState, action) => {
@@ -16,6 +17,7 @@ const MainReducer = (currentState = initialState, action) => {
             return {...currentState, loggedInStatus:true}
         case 'USER_LOGOUT':
             localStorage.setItem('userLoggedInStatus', false);
+            localStorage.clear()
             return {...currentState, loggedInStatus:false}
         case 'ADD_PRODUCT':
             var tempPro = currentState.productsData

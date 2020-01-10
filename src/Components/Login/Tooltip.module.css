@@ -1,0 +1,11 @@
+.tooltip{
+    background: #567086;
+    color:#f5a623;
+}
+.tooltip ul{
+    padding: 2px 10px;
+}
+.tooltip ul li{
+    text-align: left;
+    list-style-type: none;
+}

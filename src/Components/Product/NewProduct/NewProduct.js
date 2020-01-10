@@ -5,7 +5,19 @@ import {connect} from 'react-redux'
 class NewProduct extends Component {
 
     state = {
-        newProduct:[]
+        newProduct:[],
+        name:'',
+        description:''
+
+    }
+
+    handleChange = (e) => {
+        const{name,value} = e.target
+        if(/^[A-Za-z\d\s]*$/i.test(value)){
+        this.setState({[name]:value})
+        }else{
+            e.preventDefault()
+        }
     }
 
     upload = (e) => {
@@ -35,11 +47,13 @@ class NewProduct extends Component {
     addProduct = (e) => {
         e.preventDefault()
         var formData = e.target
+       var date =  this.convertDate(formData.expireDate.value)
         var newProduct = {
             name:formData.name.value,
             unitSold: '',
             stock:formData.stock.value,
-            expireDate:formData.expireDate.value
+            expireDate:date,
+            unitSold:0
         }
         var data =  JSON.parse(localStorage.getItem('productsPage'))
         data.products.push(newProduct)
@@ -47,6 +61,41 @@ class NewProduct extends Component {
         this.props.onAddProduct(newProduct)
         this.props.history.push('/products')
     }
+
+    convertDate = (value) => {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+            ];
+        const d = new Date(value)
+        const month = monthNames[d.getMonth()]
+        const date = d.getDate()
+        const year = d.getFullYear()
+        console.log(`${date} ${month} ${year}`)
+        return `${date} ${month} ${year}`
+    }
+
+    x = (e) => {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+            ];
+            
+        const {name,value} = e.target
+        const d = new Date(value)
+        const month = monthNames[d.getMonth()]
+        const date = d.getDate()
+        const year = d.getFullYear()
+        console.log(`${date} ${month} ${year}`)
+        //return `${date} ${month} ${year}`
+        // console.log(e.target)
+        // console.log(value)
+        // console.log(new Date(value).getMonth())
+        // console.log(new Date(value).getDate())
+        // console.log(new Date(value).getFullYear())
+        // console.log(new Date(value).getUTCDay())
+        // console.log(new Date(value).getUTCDate())
+        // console.log(new Date(value).getUTCMonth())
+    }
+
      render(){
     return(
        <div className={classes.newproductcon}> 
@@ -55,9 +104,20 @@ class NewProduct extends Component {
             <div className={classes.formsection}>
                 <form className={classes.form} id="newProductForm" onSubmit={this.addProduct}>
                     <label htmlFor="name">Product Name</label>
-                    <input id="name" name="name" type="text" required/>
+                    <input id="name" 
+                    onChange={(e) => this.handleChange(e)}
+                     name="name"
+                      type="text"
+                     value={this.state.name}
+                      required/>
                     <label htmlFor="desc">Description</label>
-                    <textarea id="description" rows="7" required/>
+                    <textarea
+                     id="desc"
+                    name="description"
+                    rows="7"
+                    value={this.state.description}
+                    onChange={(e) => this.handleChange(e)}
+                     required/>
                     <label htmlFor="catrgory">Category</label>
                     <select defaultValue={'DEFAULT'} id="category" required>
                         <option value="DEFAULT" disabled>select category</option>
@@ -65,10 +125,18 @@ class NewProduct extends Component {
                         <option value="2">Most Popular</option>
                         <option value="3">Trending</option>
                     </select>
-                    <label>Expire Date</label>
+                    <div className={classes.x}>
+                    <div className={classes.field}>    
+                    <label>Expire Date
+                    </label>
                     <input type="date" name="expireDate" required/>
-                    <label>Units in Stock</label>
+                    </div>
+                    <div className={classes.field}>
+                    <label>Units in Stock
+                    </label>
                     <input type="number" name="stock" required/>
+                    </div>
+                    </div>
                 </form>
             </div>
             <div className={classes.formsection}>
